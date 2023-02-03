@@ -13,7 +13,7 @@ stm.text("🐔 Hard-Boiled Free-Range Egg")
 stm.text('🥑🍞 Avocado Toast')
 
 stm.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
-stm.multiselect('Pick some fruits:', list(my_fruit_list.index))
+stm.multiselect('Pick some fruits:', list(my_fruit_list.index), ['Avocado', 'Strawberries'])
 
 
 stm.dataframe(my_fruit_list)
