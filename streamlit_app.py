@@ -7,4 +7,4 @@ stm.text("🥗 Kale, Spinach & Rocket Smoothie")
 stm.text("🐔 Hard-Boiled Free-Range Egg")
 stm.text('🥑🍞 Avocado Toast')
 
-streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
+stm.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
