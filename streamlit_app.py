@@ -22,10 +22,10 @@ stm.dataframe(fruits_to_show)
 stm.header('Fruityvice Fruit Advice!')
 
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-stm.text(fruityvice_response.json()) # write json format in screen
+#stm.text(fruityvice_response.json()) # write json format in screen
 
 # normalize json version of response
-fruityvice_normalized = pd.json_normilize(fruityvice_response.json())
+fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 
 # display response as a table
 stm.dataframe(fruityvice_normalized)
