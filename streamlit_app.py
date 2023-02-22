@@ -37,16 +37,29 @@ try:
 except URLError as e:
   stm.error()
 
-# do not run anything past here while we troubleshoot
-stm.stop()
-
-my_cnx = snowflake.connector.connect(**stm.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("SELECT * FROM fruit_load_list")
-my_data_rows = my_cur.fetchall()
 stm.header("The fruit load list contains:")
-stm.dataframe(my_data_rows)
+# snowflake related functions
 
-# allow the user to add a fruit to the list
-add_my_fruit = stm.text_input('What fruit would you like to add?')
-stm.write('Thanks for adding ', add_my_fruit)
+def get_fruit_loaded_list():
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("select * from fruity_load_list")
+    return my_cur.fetchall()
+  
+# add a button to load fruit
+if stm.button('Get Fruit Load List'):
+  my_cnx = snowflake.connector.connect(**stm.secrets["snowflake"])
+  my_data_rows = get_fruit_loaded_list()
+  my_cnx.close()
+  stm.dataframe(my_data_rows)
+
+# Allow user to enter fruits to the list
+def insert_row_snowflake(new_fruit):
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("INSERT INTO fruit_load_list values ('"+ new_fruit +"')")
+    return "Thanks for adding " + new_fruit
+  
+add_my_fruit = stm.txt_input('What fruit would you like to add?')
+if stm.button('Add a fruit to the List'):
+  my_cnx = snowflake.connector.connect(**stm.secrets["snowflake"])
+  stm.text(insert_row_snowflake(add_my_fruit))
+  my_cnx.close()
