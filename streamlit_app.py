@@ -22,17 +22,17 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 stm.dataframe(fruits_to_show)
 
 stm.header('Fruityvice Fruit Advice!')
-fruit_choice = stm.text_input('What fruit would you like information about?','Kiwi')
-stm.write('The user entered ', fruit_choice)
-
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-#stm.text(fruityvice_response.json()) # write json format in screen
-
-# normalize json version of response
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-
-# display response as a table
-stm.dataframe(fruityvice_normalized)
+try:
+  fruit_choice = stm.text_input('What fruit would you like information about?')
+  if not fruit_choice:
+    stm.error("Please select a fruit to get information.")
+  else:
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    stm.dataframe(fruityvice_normalized)
+    
+execpt URLError as e:
+  stm.error()
 
 # do not run anything past here while we troubleshoot
 stm.stop()
