@@ -58,7 +58,7 @@ def insert_row_snowflake(new_fruit):
     my_cur.execute("INSERT INTO fruit_load_list values ('"+ new_fruit +"')")
     return "Thanks for adding " + new_fruit
   
-add_my_fruit = stm.txt_input('What fruit would you like to add?')
+add_my_fruit = stm.text_input('What fruit would you like to add?')
 if stm.button('Add a fruit to the List'):
   my_cnx = snowflake.connector.connect(**stm.secrets["snowflake"])
   stm.text(insert_row_snowflake(add_my_fruit))
